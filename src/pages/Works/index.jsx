@@ -10,7 +10,7 @@ function Works() {
     <motion.div
       className={style.wrapper}
       initial={{
-        x: -window.innerWidth,
+        x: window.innerWidth,
         opacity: 0.3,
       }}
       animate={{
@@ -19,14 +19,13 @@ function Works() {
         transition: { duration: 0.3, delay: 0.3 },
       }}
       exit={{
-        x: window.innerWidth,
+        x: -window.innerWidth,
         opacity: 0.3,
         transition: { duration: 0.2 },
       }}
     >
       <ScrollToTopOnMount />
-      <h1>Projects</h1>
-      <div>
+      <div className={style.inner}>
         <div className={style.card}>
           {/* <a href='#' target='_blank'> */}
           <div className={style.img}>

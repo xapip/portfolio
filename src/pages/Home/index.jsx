@@ -33,14 +33,14 @@ function Home() {
     <motion.main
       ref={parallaxRef}
       className={style.wrapper}
-      initial={{ x: -window.innerWidth, opacity: 0 }}
+      initial={{ x: window.innerWidth, opacity: 0 }}
       animate={{
         x: 0,
         opacity: 1,
         transition: { duration: 0.3, delay: 0.3 },
       }}
       exit={{
-        x: window.innerWidth,
+        x: -window.innerWidth,
         opacity: 0,
         transition: { duration: 0.2 },
       }}

@@ -14,14 +14,14 @@
 }
 
 .darkTheme{
-	background-image: url(../assets/img/bgStars.png);
+	background-image: url('../img/bgStars.png');
 	
   background-color: $dark-bg;
 	color: $dark-color;
 }
 
 .lightTheme{
-	background-image: url(../assets/img/bgStars.png);
+	background-image: url('../img/bgStars.png');
   background-color: $light-bg;
 	color: $light-color;
 }
