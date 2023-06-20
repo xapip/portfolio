@@ -1,0 +1,69 @@
+.footer {
+  height: 100vh;
+  overflow-y: hidden;
+
+  position: relative;
+}
+
+.earthWrapper {
+  width: 100%;
+  height: 100%;
+  transform: translateY(50%);
+
+  .earth {
+    width: 100%;
+    height: 100%;
+
+    background-position: top;
+    background-repeat: no-repeat;
+    background-image: url("./earth.svg");
+  }
+
+  & svg{
+    width: 100%;
+    height: 100vh;
+
+    position: absolute;
+    transform: translateY(-50vh);
+  }
+}
+
+.link {
+  position: absolute;
+
+  text-align: center;
+
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  &.one {
+    left: 65%;
+    top: -13%;
+
+    offset-path: path("M -600,240 C -600,150 -570,110 -500,77 C -500,77 -420,30 40,0");
+  }
+
+  &.two {
+    left: 45%;
+    top: -10%;
+
+    offset-path: path("M -400,240 C -400,150 -365,120 -330,100 C -330,100 -210,10 40,-10");
+  }
+
+  
+
+  &.three {
+    left: 25%;
+    top: -5%;
+
+    offset-path: path("M -200,200 C -200,150 -170,100 -110,60 C -110,60 -50,20 40,-10");
+  }
+}
+
+

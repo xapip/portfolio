@@ -1,19 +1,14 @@
 .wrapper{
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 
-  position: absolute;
+  position: fixed;
   left: 0;
-  top: -66px;
+  top: 0;
   z-index: 1;
   width: 100%;
 
   padding: 30px;
-
-  border-bottom: 1px solid rgba($color: #ffffff, $alpha: .3);
-  border-radius: 0 0 10px 10px;
-  box-shadow: 0 2px 15px rgba($color: #ffffff, $alpha: .4);
-  background-color: inherit;
 
   transition: top .5s ease-in-out;
 
@@ -23,13 +18,14 @@
 
   .navList{
     display: flex;
-    justify-content: space-evenly;
 
     font-size: 1.2rem;
     font-weight: 600;
 
+    
+
     & .item{
-      padding: 0 10px;
+      margin: 0 10px;
       cursor: pointer;
       opacity: .5;
 
@@ -38,6 +34,10 @@
       &:hover{
         opacity: 1;
       }
+    }
+
+    & a.active{
+      opacity: 1;
     }
   }
 }
