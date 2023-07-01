@@ -3,31 +3,18 @@ import { NavLink } from "react-router-dom";
 
 import { motion } from "framer-motion";
 
+import { projects } from "../../../data/cardProjects/cardProjectsData";
 import style from "./projectPreview.module.scss";
-
-const imgPath = [
-  {
-    id: 1,
-    src: "./img/projects/Weather-appFullPage.webp",
-    alt: "приложение погоды",
-  },
-  { id: 2, src: "./img/projects/MOGO-landing.webp", alt: "лендинг MOGO" },
-  { id: 3, src: "./img/projects/NFT-landing.webp", alt: "лендинг NFT" },
-  {
-    id: 4,
-    src: "./img/projects/Weather-appFullPage.webp",
-    alt: "приложение погоды",
-  },
-];
 
 function ProjectPreview() {
   const constraintRef = React.useRef(null);
+  let bgButton = "#1B2B34";
 
   return (
     <section className={style.projectPreview}>
       <h2 className={style.title}>Мои работы</h2>
       <div ref={constraintRef} className={style.projectsList}>
-        {imgPath.map((item, index) => (
+        {projects.slice(-3).map((item, index) => (
           <motion.div
             key={item.id}
             drag
@@ -36,17 +23,50 @@ function ProjectPreview() {
             dragTransition={{ bounceStiffness: 200, bounceDamping: 10 }}
             className={style.cart}
             style={{
-              backgroundImage: `url(${item.src})`,
+              backgroundImage: `url(${item.imgFullPage})`,
               backgroundPosition: "center",
               backgroundSize: "cover",
               position: "absolute",
-              top: `${(index + 1) * 10}%`,
-              left: `${(index + 1) * 13}%`,
+              top: `${(index + 1) * 15}%`,
+              left: `${(index + 1) * 17}%`,
             }}
           />
         ))}
+        <div className={style.navLink}>
+          <div className={style.rayInner}>
+            <div className={style.shadow}></div>
+            <svg
+              className={style.ray}
+              width="150"
+              height="1200"
+              viewBox="0 0 150 1200"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M75 0H105L89 600H59L45 0H75Z"
+                fill="#718B9A"
+                fillOpacity="0.5"
+              />
+              <path
+                d="M75 1200H105L89 600H59L45 1200H75Z"
+                fill="#718B9A"
+                fillOpacity="0.5"
+              />
+              <circle
+                cx="75"
+                cy="600"
+                r="75"
+                fill="#718B9A"
+                fillOpacity="0.7"
+              />
+            </svg>
+          </div>
+          <div className={style.inner}>
+            <NavLink to={"/works"}>узнать больше</NavLink>
+          </div>
+        </div>
       </div>
-      <NavLink to={"/works"}>узнать больше</NavLink>
     </section>
   );
 }

@@ -46,11 +46,6 @@ function Home() {
       }}
     >
       <ScrollToTopOnMount />
-      <div className={style.typedText}>
-        {`Кобзев Алксандр = {...Я`}
-        <span ref={el}></span>
-        {`}`}
-      </div>
       <motion.header
         style={{ y, opacity }}
         animate={{ transition: { duration: 1 } }}
@@ -64,6 +59,11 @@ function Home() {
         <h2 className={style.subtitle}>я frontend-разработчик</h2>
         <p className={style.text}>добро пожаловать на мой сайт-портфолио :-)</p>
       </motion.header>
+      <div className={style.typedText}>
+        {`Кобзев Алксандр = {...Я`}
+        <span ref={el}></span>
+        {`}`}
+      </div>
       <ProjectPreview />
       <Contacts />
     </motion.main>

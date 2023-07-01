@@ -3,7 +3,10 @@ import React from "react";
 import { motion } from "framer-motion";
 
 import ScrollToTopOnMount from "../../libs/ScrollToTopOnMount";
+import Card from "./Card";
 import style from "./works.module.scss";
+
+import { projects } from "../../data/cardProjects/cardProjectsData";
 
 function Works() {
   return (
@@ -26,17 +29,9 @@ function Works() {
     >
       <ScrollToTopOnMount />
       <div className={style.inner}>
-        <div className={style.card}>
-          {/* <a href='#' target='_blank'> */}
-          <div className={style.img}>
-            <img src="./img/projects/Weather-app.webp" alt="превью работы" />
-          </div>
-          <h2 className={style.title}>приложение погоды</h2>
-          <p className={style.description}>
-            Сделано на ванильном JS, нарисован в Figma{" "}
-          </p>
-          {/* </a> */}
-        </div>
+        {projects.map(({ id, ...project }, index) => (
+          <Card key={id} project={project} index={index} />
+        ))}
       </div>
     </motion.div>
   );

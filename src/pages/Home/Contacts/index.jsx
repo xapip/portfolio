@@ -20,6 +20,24 @@ const earthAnimate = {
   },
 };
 
+const linksAnimate = {
+  hidden: {
+    offsetDistance: "0%",
+    scale: 0.6,
+    opacity: 0,
+  },
+  visible: {
+    offsetDistance: "100%",
+    scale: 1.15,
+    opacity: 1,
+    transition: {
+      ease: cubicBezier(0.06, 0.02, 0.4, 1),
+      duration: 2.9,
+      delay: 0.5,
+    },
+  },
+};
+
 function Contacts() {
   return (
     <div className={style.footer}>
@@ -71,10 +89,10 @@ function Contacts() {
             },
           }}
           className={`${style.link} ${style.two}`}
-          href="/"
+          href="https://t.me/Aleks_Kobzev"
           target="_blank"
         >
-          <img src="./img/icons/linkedin.svg" alt="GitHub" />
+          <img src="./img/icons/telegram.svg" alt="telegram" />
         </motion.a>
         <motion.a
           variants={{
@@ -98,7 +116,7 @@ function Contacts() {
           href="/"
           target="_blank"
         >
-          <img src="./img/icons/twitter.svg" alt="GitHub" />
+          <img src="./img/icons/linkedIn.svg" alt="GitHub" />
         </motion.a>
         <motion.div
           variants={earthAnimate}
