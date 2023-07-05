@@ -1,3 +1,5 @@
+@import '../../../style/vars.scss';
+
 .footer {
   height: 100vh;
   overflow-y: hidden;
@@ -64,6 +66,8 @@
 
     offset-path: path("M -200,200 C -200,150 -170,100 -110,60 C -110,60 -50,20 40,-10");
   }
+
+  
 }
 
 

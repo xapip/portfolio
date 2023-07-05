@@ -8,7 +8,6 @@ import style from "./projectPreview.module.scss";
 
 function ProjectPreview() {
   const constraintRef = React.useRef(null);
-  let bgButton = "#1B2B34";
 
   return (
     <section className={style.projectPreview}>
