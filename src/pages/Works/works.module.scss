@@ -7,7 +7,7 @@
   padding: 7rem 0 3rem;
 }
 
-.inner{
+.cardBox{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(304px, 1fr));
   justify-items: center;
@@ -18,4 +18,24 @@
   width: 100%;
   height: auto;
   padding: 15px 0;
+  margin-bottom: 50px;
+}
+
+.footer{
+  font-size: 2rem;
+
+  .title{
+    font-size: inherit;
+    font-weight: 500;
+
+    margin-bottom: 15px;
+  }
+
+  .subtitle{
+    font-size: 0.6em;
+  }
+
+  a{
+    color: $third-color;
+  }
 }

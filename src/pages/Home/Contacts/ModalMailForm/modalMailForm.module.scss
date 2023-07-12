@@ -66,8 +66,9 @@
   }
 
   .form {
-    display: grid;
-    grid-template: repeat(2, 1fr) 250px / 400px;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
     row-gap: 20px;
   }
 

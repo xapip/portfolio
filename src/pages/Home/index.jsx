@@ -1,6 +1,11 @@
 import React from "react";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import Typed from "typed.js";
 
 import ScrollToTopOnMount from "../../libs/ScrollToTopOnMount";
@@ -15,7 +20,7 @@ function Home() {
   React.useEffect(() => {
     const typed = new Typed(el.current, {
       strings: [
-        "^1000, HTML^1500, CSS^1500, JS^1500, Git^1500, Figma^1500, React.js",
+        "^1000, HTML^1500, CSS^1500, JS^1500, Git^1500, Figma^1500, React",
       ],
       typeSpeed: 150,
     });
@@ -45,27 +50,33 @@ function Home() {
         transition: { duration: 0.2 },
       }}
     >
-      <ScrollToTopOnMount />
-      <motion.header
-        style={{ y, opacity }}
-        animate={{ transition: { duration: 1 } }}
-        className={style.header}
-      >
-        <h1 className={style.title}>
-          Привет
-          <br />
-          меня зовут Кобзев Александр
-        </h1>
-        <h2 className={style.subtitle}>я frontend-разработчик</h2>
-        <p className={style.text}>добро пожаловать на мой сайт-портфолио :-)</p>
-      </motion.header>
-      <div className={style.typedText}>
-        {`Кобзев Алксандр = {...Я`}
-        <span ref={el}></span>
-        {`}`}
-      </div>
-      <ProjectPreview />
-      <Contacts />
+      <AnimatePresence initial={true}>
+        <React.Fragment key="home">
+          <ScrollToTopOnMount />
+          <motion.header
+            style={{ y, opacity }}
+            animate={{ transition: { duration: 1 } }}
+            className={style.header}
+          >
+            <h1 className={style.title}>
+              Привет
+              <br />
+              меня зовут Кобзев Александр
+            </h1>
+            <h2 className={style.subtitle}>я frontend-разработчик</h2>
+            <p className={style.text}>
+              добро пожаловать на мой сайт-портфолио :-)
+            </p>
+          </motion.header>
+          <div className={style.typedText}>
+            {`const {...Я`}
+            <span ref={el}></span>
+            {`} = Кобзев Алксандр`}
+          </div>
+          <ProjectPreview />
+          <Contacts />
+        </React.Fragment>
+      </AnimatePresence>
     </motion.main>
   );
 }

@@ -1,17 +1,26 @@
 import React from "react";
-import { useInput } from "../../myHooks/useInput";
 
-export default function TextArea() {
-  const message = useInput("");
+import style from "./textArea.module.scss";
 
+export default function TextArea({
+  name,
+  value,
+  onChange,
+  onBlur,
+  isEmpty,
+  minLengthError,
+  isDirty,
+}) {
   return (
     <textarea
-      onChange={(e) => message.onChange(e)}
-      onBlur={(e) => message.onBlur(e)}
-      value={message.value}
-      style={message.isEmpty ? { borderColor: "red" } : null}
-      name="message"
-      id="message"
+      onChange={(e) => onChange(e)}
+      onBlur={(e) => onBlur(e)}
+      value={value}
+      style={
+        (isEmpty || minLengthError) && isDirty ? { borderColor: "red" } : null
+      }
+      className={style.textarea}
+      name={name}
     ></textarea>
   );
 }

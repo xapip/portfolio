@@ -1,10 +1,12 @@
 import React from "react";
 
 import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
 
+import Preloader from "../../../../components/Preloader";
+import FormItem from "../../../../components/FormItem";
 import { useInput } from "../../../../myHooks/useInput";
 import style from "./modalMailForm.module.scss";
-import FormItem from "../../../../components/FormItem";
 
 const modalAnimate = {
   hidden: {
@@ -14,7 +16,6 @@ const modalAnimate = {
     opacity: 1,
   },
 };
-
 const formBoxAnimate = {
   hidden: {
     translateY: 100,
@@ -25,83 +26,167 @@ const formBoxAnimate = {
     scale: 1,
   },
 };
+const minLength = 3;
 
 export default function ModalMailForm({ closeModal }) {
-  const name = useInput("");
+  const [isDisabled, setDisabled] = React.useState(true);
+  const [isPreloader, setPreloader] = React.useState({
+    state: false,
+    color: "#ff0000",
+  });
+
+  const refClickModal = React.useRef(false);
+
+  const name = useInput("", minLength);
   const email = useInput("");
-  const message = useInput("");
+  const message = useInput("", minLength);
+
+  React.useEffect(() => {
+    const isEmpty = name.isEmpty || email.isEmpty || message.isEmpty;
+    const emailError = email.emailError;
+    const minLengthError = name.minLengthError || message.minLengthError;
+
+    isEmpty ||
+    emailError ||
+    minLengthError ||
+    name.value.length <= 0 ||
+    email.value.length <= 0 ||
+    message.value.length <= 0
+      ? setDisabled(true)
+      : setDisabled(false);
+  }, [
+    email.emailError,
+    email.isEmpty,
+    email.minLengthError,
+    email.value.length,
+    message.isEmpty,
+    message.minLengthError,
+    message.value.length,
+    name.isEmpty,
+    name.minLengthError,
+    name.value.length,
+  ]);
+
+  const form = React.useRef(null);
 
   const sendEmail = (e) => {
     e.preventDefault();
+
+    setPreloader({ ...isPreloader, state: true });
+
+    emailjs
+      .sendForm(
+        "service_rg6t78d",
+        "template_qyt0u5o",
+        form.current,
+        "6nApcDmVhIT0fIJeb"
+      )
+      .then(
+        () => {
+          setPreloader((prev) => ({ ...prev, color: "#30C030" }));
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              return resolve();
+            }, 1000);
+          });
+        },
+        (err) => {
+          alert(`Упс... Что-то пошло не так( Попробуйте еще раз`);
+          return err;
+        }
+      )
+      .then(() => {
+        name.onClear();
+        email.onClear();
+        message.onClear();
+        closeModal();
+        setTimeout(() => {
+          setPreloader({
+            state: false,
+            color: "#ff0000",
+          });
+        }, 2000);
+      });
   };
 
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      exit="hidden"
-      variants={modalAnimate}
-      transition={{
-        duration: 0.5,
-      }}
-      onClick={closeModal}
-      className={style.modal}
-    >
+    <>
       <motion.div
-        variants={formBoxAnimate}
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        variants={modalAnimate}
         transition={{
-          duration: 0.5,
+          duration: 0.3,
         }}
-        onClick={(e) => e.stopPropagation()}
-        className={style.formBox}
+        onMouseDown={(e) =>
+          e.target.classList.contains(style.modal)
+            ? (refClickModal.current = true)
+            : null
+        }
+        onMouseUp={(e) => {
+          if (
+            refClickModal.current &&
+            e.target.classList.contains(style.modal)
+          ) {
+            e.preventDefault();
+            refClickModal.current = false;
+            closeModal();
+            return;
+          }
+          refClickModal.current = false;
+        }}
+        className={style.modal}
       >
-        <button onClick={closeModal} className={style.closeBtn}>
-          закрыть
-        </button>
-        <form onSubmit={sendEmail} action="#" className={style.form}>
-          {/* <div className={`${style.inputBox} ${style.nameInput}`}>
-            <input
-              onChange={(e) => name.onChange(e)}
-              onBlur={(e) => name.onBlur(e)}
-              value={name.value}
-              style={name.isEmpty ? { borderColor: "red" } : null}
+        <motion.div
+          variants={formBoxAnimate}
+          transition={{
+            duration: 0.5,
+          }}
+          onClick={(e) => e.stopPropagation()}
+          className={style.formBox}
+        >
+          <button onClick={closeModal} className={style.closeBtn}>
+            закрыть
+          </button>
+          <form
+            ref={form}
+            onSubmit={sendEmail}
+            action="#"
+            className={style.form}
+            id="mailForm"
+          >
+            <FormItem
+              label="Ваше имя"
               type="text"
               name="name"
-              id="name"
+              useInput={name}
+              minLength={minLength}
             />
-            <label htmlFor="name">Ваше имя</label>
-          </div> */}
-          {/* <div className={`${style.inputBox} ${style.emailInput}`}>
-            <input
-              onChange={(e) => email.onChange(e)}
-              onBlur={(e) => email.onBlur(e)}
-              value={email.value}
-              style={email.isEmpty ? { borderColor: "red" } : null}
+            <FormItem
+              label="Ваша почта"
               type="email"
               name="email"
-              id="email"
+              useInput={email}
             />
-            <label htmlFor="email">Ваша почта</label>
-          </div>
-          <div className={`${style.inputBox} ${style.messageTextarea}`}>
-            <textarea
-              onChange={(e) => message.onChange(e)}
-              onBlur={(e) => message.onBlur(e)}
-              value={message.value}
-              style={message.isEmpty ? { borderColor: "red" } : null}
+            <FormItem
+              textarea={true}
+              label="Ваше сообщение"
               name="message"
-              id="message"
-            ></textarea>
-            <label htmlFor="message">Ваше сообщение</label>
-          </div> */}
-          <FormItem />
-          <FormItem />
-          <FormItem textarea={true} />
-          <button disabled className={style.submiteBtn} type="submite">
-            Отправить{" "}
-          </button>
-        </form>
+              useInput={message}
+              minLength={minLength}
+            />
+            <button
+              disabled={isDisabled}
+              className={style.submiteBtn}
+              type="submite"
+            >
+              Отправить{" "}
+            </button>
+          </form>
+        </motion.div>
       </motion.div>
-    </motion.div>
+      {isPreloader.state && <Preloader color={isPreloader.color} />}
+    </>
   );
 }

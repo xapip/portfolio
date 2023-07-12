@@ -1,0 +1,17 @@
+@import "../../style/vars.scss";
+
+.inputBox {
+  position: relative;
+
+  label {
+    position: absolute;
+    left: 10px;
+    top: -12px;
+    background-color: $dark-bg;
+    padding: 0 5px;
+  }
+
+  .errorMessage {
+    color: red;
+  }
+}

@@ -43,9 +43,11 @@ function Contacts() {
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
 
   React.useEffect(() => {
+    const html = document.documentElement;
+
     modalIsOpen
-      ? (document.body.style.overflowY = "hidden")
-      : (document.body.style = "");
+      ? html.classList.add("modalOpen")
+      : html.classList.remove("modalOpen");
   }, [modalIsOpen]);
 
   return (

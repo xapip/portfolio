@@ -1,19 +1,31 @@
 import React from "react";
 
-import { useInput } from "../../myHooks/useInput";
 import style from "./input.module.scss";
 
-export default function Input() {
-  const name = useInput("");
+export default function Input({
+  type,
+  name,
+  value,
+  onChange,
+  onBlur,
+  isEmpty,
+  minLengthError,
+  emailError,
+  isDirty,
+}) {
   return (
     <input
-      onChange={(e) => name.onChange(e)}
-      onBlur={(e) => name.onBlur(e)}
-      value={name.value}
-      style={name.isEmpty ? { borderColor: "red" } : null}
-      type="text"
-      name="name"
-      id="name"
+      onChange={(e) => onChange(e)}
+      onBlur={(e) => onBlur(e)}
+      value={value}
+      style={
+        (isEmpty || minLengthError || emailError) && isDirty
+          ? { borderColor: "red" }
+          : null
+      }
+      className={style.input}
+      type={type}
+      name={name}
     />
   );
 }
